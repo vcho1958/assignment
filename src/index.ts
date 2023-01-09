@@ -1,21 +1,10 @@
 import axios from "axios";
-function getStationsByPrice(price) {
-	return axios.get<string[]>('https://test.oilnow.co.kr/gstations?price=' + price)
-		.then(function (res) {
-			// return station id list (example: ["A001", "A002"])
-			return res;
-		})
-		.catch(function (err) {
-			return [];
-		})
+
+async function getStationsByPrice(price:number) {
+	return axios.get<[]>('https://test.oilnow.co.kr/gstations?price=' + price)
+		.then(res=>res.data).catch(e=>[])
 }
 
-var list = getStationsByPrice(1300)
-	.then(function(res1){
-		return getStationsByPrice(1400)
-		.then(function(res2){
-			return res1.concat(res2) 
-		})
-	});
-
-console.log(list);
+const list = getStationsByPrice(1300)
+	.then(res1 => getStationsByPrice(1400).then(res2 => res1.concat(res2)))
+	.then(console.log)
