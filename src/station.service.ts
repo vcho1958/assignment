@@ -1,3 +1,5 @@
+import axios from "axios"
+
 export default class StationService {
 
 	public async printStationList():Promise<void> {
