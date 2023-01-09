@@ -10,7 +10,8 @@ export default class StationService {
 
 	private async getStationsByPrice(price: number):Promise<string[]> {
 		try {
-			return await axios.get<[]>('https://test.oilnow.co.kr/gstations?price=' + price).then(res=>res.data)
+   const { data } = await axios.get<string[]>('https://test.oilnow.co.kr/gstations?price=' + price)
+   return data
 		} catch {
 			return []
 		}
