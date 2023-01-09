@@ -1,10 +1,17 @@
 import axios from "axios";
 
-async function getStationsByPrice(price:number) {
-	return axios.get<[]>('https://test.oilnow.co.kr/gstations?price=' + price)
-		.then(res=>res.data).catch(e=>[])
+async function getStationsByPrice(price: number):Promise<string[]> {
+	try {
+		return await axios.get<[]>('https://test.oilnow.co.kr/gstations?price=' + price).then(res=>res.data)
+	} catch {
+		return []
+	}
 }
 
-const list = getStationsByPrice(1300)
-	.then(res1 => getStationsByPrice(1400).then(res2 => res1.concat(res2)))
-	.then(console.log)
+async function printStationList():Promise<void> {
+	const res1 = await getStationsByPrice(1300)
+	const res2 = await getStationsByPrice(1400)
+	console.log(res1.concat(res2))
+}
+
+printStationList()
