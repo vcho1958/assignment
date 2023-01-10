@@ -1,4 +1,4 @@
 import StationService from "./station.service";
 
 const stationService = new StationService()
-stationService.printStationList()
+stationService.printStationListByPrices(1300,1400)
